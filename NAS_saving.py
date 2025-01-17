@@ -6,10 +6,12 @@ from scipy.io import savemat
 from datetime import datetime
 import re
 
+#ks srate 3999
+    
 # 오늘 날짜를 포함한 경로 생성
 today_date = datetime.today().strftime('%y%m%d')
-Dir_path = r'C:\Users\user\Desktop\천안임상\b\P3\11' #변경해서 사용. 아래 인바디 저장된 path도 변경해야 함
-Save_path = r'C:\Users\user\Desktop\천안임상\b\P3\11\tmp'
+Dir_path = r'C:\Users\user\Desktop\temp\ks' #P3 데이터 경로
+Save_path = r'C:\Users\user\Desktop\temp\ks\tmp' #이건 수정해야함
 os.makedirs(Save_path, exist_ok=True)
 
 ra1_files = [f for f in os.listdir(Dir_path) if f.endswith('.ra1')]
@@ -123,6 +125,7 @@ for data_id, pairs in file_pairs.items():
 
         combined_df = pd.concat([ra1_combined_df, raw_df], axis=1)
 
+        #청음값 붙이기
         #SBP, DBP reference data dataframe에 넣는 코드
         #matching_row = ref_data[ref_data['ID'] == data_id]
 
@@ -146,7 +149,7 @@ for data_id, pairs in file_pairs.items():
         dfm = combined_df.astype(float)
         data_dict = {col : dfm[col].tolist() for col in dfm.columns}
         
-        savemat(os.path.join(mat_folder, f'{data_id}_{i+1}.mat'), data_dict)
+        # savemat(os.path.join(mat_folder, f'{data_id}_{i+1}.mat'), data_dict)
 
 # #인바디 분리 함수
 # def split_dataframe_by_id(df, base_path):
@@ -175,5 +178,3 @@ for data_id, pairs in file_pairs.items():
 # split_dataframe_by_id(inbody_df, Save_path)
 
 # print("All files processed.")
-
-#RTasdfasdfadsfdasfdsaf
